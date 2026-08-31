@@ -234,9 +234,6 @@
   .section{margin-top:12px;background:var(--card);border-radius:var(--radius);border:none;box-shadow:var(--shadow-card);overflow:hidden;}
   .section-head{display:flex;justify-content:space-between;align-items:center;padding:15px 16px;cursor:pointer;}
   .section-head .name{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:6px;}
-  .inv-cat-head{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));}
-  .inv-cat-head .name{font-size:14px;font-weight:800;color:#fff;letter-spacing:-.01em;}
-  .inv-cat-head .count{font-size:12.5px;font-weight:800;color:#fff;background:rgba(255,255,255,.24);padding:4px 11px;border-radius:999px;}
   .section-head .meta{display:flex;align-items:center;gap:8px;}
   .section-head .count{font-size:12.5px;color:var(--text-sub);font-weight:600;}
   .cam-btn{border:1px solid var(--border);background:#F9FAFB;color:#8B95A1;width:28px;height:28px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 28px;}
@@ -351,6 +348,8 @@
   .toast.error{background:#F04452;}
 
   .checkin-overlay{position:fixed;inset:0;background:linear-gradient(160deg,var(--blue-dark),var(--blue) 65%);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10500;padding:32px;text-align:center;color:#fff;}
+  .checkin-overlay.out{background:linear-gradient(160deg,#1F7A3D,#3FAE5C 65%);}
+  .checkin-overlay.out .checkin-cta{color:#1F7A3D;}
   .checkin-overlay.show{display:flex;}
   .checkin-badge{width:86px;height:86px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;margin-bottom:24px;animation:checkinPop .45s cubic-bezier(.34,1.56,.64,1);}
   .checkin-badge svg{width:42px;height:42px;}
@@ -420,11 +419,6 @@
   .order-toggle-btn{flex:0 0 auto;border:none;background:#F1F3F8;color:var(--text-sub);width:24px;height:24px;border-radius:10px;font-size:13px;cursor:pointer;}
   .order-toggle-btn.done{background:#237A3D;color:#fff;}
   .notice-filter-row{display:flex;gap:8px;margin-top:14px;padding:0 2px;}
-  .notice-search-wrap{position:relative;display:flex;align-items:center;background:var(--card);box-shadow:var(--shadow-card);border-radius:14px;padding:12px 14px;gap:8px;margin-bottom:12px;}
-  .notice-search-ic{color:var(--text-faint);flex:0 0 auto;}
-  .notice-search-input{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:14px;color:var(--text);outline:none;}
-  .notice-search-input::placeholder{color:var(--text-faint);}
-  .notice-search-clear{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:none;background:#F1F3F8;color:var(--text-sub);font-size:12px;cursor:pointer;}
   .notice-filter-btn{border:none;background:var(--card);box-shadow:var(--shadow-card);color:var(--text-sub);font-size:12px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer;}
   .notice-filter-btn.on{background:var(--blue);color:#fff;box-shadow:none;}
   .notice-cat-tag{margin-left:auto;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;flex:0 0 auto;}
@@ -526,18 +520,18 @@
 
   /* 로그인 화면 */
   body.login-locked{overflow:hidden;}
-  .login-overlay{position:fixed;inset:0;z-index:20000;background:linear-gradient(180deg,#ffffff 0%,var(--bg) 100%);display:flex;align-items:center;justify-content:center;padding:24px 18px calc(24px + env(safe-area-inset-bottom));overflow:auto;}
+  .login-overlay{position:fixed;inset:0;z-index:20000;background:linear-gradient(180deg,#F7F9FC 0%,#F2F4F6 100%);display:flex;align-items:center;justify-content:center;padding:24px 18px calc(24px + env(safe-area-inset-bottom));overflow:auto;}
   .login-overlay.hidden{display:none;}
   .login-shell{width:100%;max-width:420px;margin:auto;text-align:center;}
   .login-brand{margin-bottom:34px;}
-  .login-logo{width:92px;height:92px;margin:0 auto 18px;border-radius:28px;background:var(--blue-50);box-shadow:0 8px 30px rgba(49,130,246,.14);display:flex;align-items:center;justify-content:center;font-size:47px;}
+  .login-logo{width:92px;height:92px;margin:0 auto 18px;border-radius:28px;background:#fff;box-shadow:0 8px 30px rgba(15,23,42,.10);display:flex;align-items:center;justify-content:center;font-size:47px;}
   .login-store-name{font-size:30px;font-weight:800;letter-spacing:-.04em;color:var(--text);}
   .login-store-sub{margin-top:8px;font-size:14px;color:var(--text-sub);font-weight:600;}
-  .login-card{background:var(--card);border-radius:24px;box-shadow:var(--shadow-card);padding:20px;}
+  .login-card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card);padding:20px;}
   .login-choice{display:flex;flex-direction:column;gap:11px;}
   .login-btn{width:100%;min-height:56px;border:none;border-radius:16px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:transform .08s,opacity .08s;}
   .login-btn:active{transform:scale(.985);}
-  .login-btn.admin{background:var(--text);color:#fff;}
+  .login-btn.admin{background:#191F28;color:#fff;}
   .login-btn.employee{background:var(--blue);color:#fff;}
   .login-note{margin-top:14px;font-size:11.5px;line-height:1.6;color:var(--text-faint);}
   .login-panel{display:none;}
@@ -545,21 +539,21 @@
   .login-back{border:none;background:none;color:var(--text-sub);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:4px 6px;margin-bottom:10px;}
   .login-title{font-size:21px;font-weight:800;color:var(--text);margin:3px 0 6px;}
   .login-desc{font-size:12.5px;color:var(--text-sub);line-height:1.5;margin-bottom:18px;}
-  .employee-name-input{width:100%;height:54px;border:1.5px solid var(--border);border-radius:15px;padding:0 16px;font-family:inherit;font-size:16px;color:var(--text);background:#FBFCFE;outline:none;text-align:center;}
+  .employee-name-input{width:100%;height:54px;border:1.5px solid #DDE3EC;border-radius:15px;padding:0 16px;font-family:inherit;font-size:16px;color:var(--text);background:#FBFCFE;outline:none;text-align:center;}
   .employee-name-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.10);}
   .employee-submit{margin-top:11px;width:100%;height:52px;border:none;border-radius:15px;background:var(--blue);color:#fff;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;}
   .pin-dots{display:flex;justify-content:center;gap:14px;margin:20px 0 20px;}
-  .pin-dot{width:14px;height:14px;border-radius:50%;background:var(--border);transition:transform .12s,background .12s;}
-  .pin-dot.on{background:var(--blue);transform:scale(1.08);}
+  .pin-dot{width:14px;height:14px;border-radius:50%;background:#DFE4EC;transition:transform .12s,background .12s;}
+  .pin-dot.on{background:var(--text);transform:scale(1.08);}
   .pin-error{height:20px;font-size:12px;color:var(--red);font-weight:700;margin-top:-9px;margin-bottom:8px;}
   .pin-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:300px;margin:0 auto;}
-  .pin-key{height:58px;border:none;border-radius:18px;background:var(--bg);color:var(--text);font-family:inherit;font-size:22px;font-weight:700;cursor:pointer;}
-  .pin-key:active{background:var(--blue-100);transform:scale(.97);}
+  .pin-key{height:58px;border:none;border-radius:18px;background:#F2F4F6;color:var(--text);font-family:inherit;font-size:22px;font-weight:700;cursor:pointer;}
+  .pin-key:active{background:#E5E9EF;transform:scale(.97);}
   .pin-key.blank{visibility:hidden;}
   .pin-key.backspace{font-size:20px;color:var(--text-sub);}
   .manager-select-list{display:flex;flex-direction:column;gap:9px;margin-top:16px;}
   .manager-profile-btn{width:100%;min-height:58px;border:1px solid var(--border);background:#FBFCFE;border-radius:15px;padding:10px 13px;font-family:inherit;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;}
-  .manager-profile-btn:active{background:var(--blue-50);border-color:var(--blue-100);}
+  .manager-profile-btn:active{background:var(--blue-50);border-color:#C7D9FA;}
   .manager-role-chip{flex:0 0 52px;min-height:30px;border-radius:10px;background:var(--blue-50);color:var(--blue-dark);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
   .manager-profile-name{font-size:15px;font-weight:800;color:var(--text);}
   .manager-profile-sub{font-size:10.5px;color:var(--text-faint);margin-top:3px;}
@@ -613,8 +607,6 @@
   .profit-selected-label{margin-top:12px;text-align:center;font-size:12px;font-weight:700;color:var(--text-sub);}
 
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </head>
 <body class="login-locked">
 
@@ -772,7 +764,6 @@
 <input type="file" id="schedCameraInput" accept="image/*" capture="environment" style="display:none;">
 <input type="file" id="profitCameraInput" accept="image/*" capture="environment" style="display:none;">
 <input type="file" id="parcelCameraInput" accept="image/*" capture="environment" multiple style="display:none;">
-<input type="file" id="sharedAlbumInput" accept="image/*" multiple style="display:none;">
 
 <div class="bottom-nav" id="bottomNav"></div>
 
@@ -1194,69 +1185,7 @@ function promptDialog(message, defaultValue, isPassword){
 
 const STORAGE_PREFIX = 'hongdae-checklist';
 const AUTH_SESSION_KEY = STORAGE_PREFIX+':auth-session:v1';
-
-/* ---------------- Supabase 연결 ---------------- */
-const SUPABASE_URL = 'https://hvkcjkcawoboveicureh.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2a2Nqa2Nhd29ib3ZlaWN1cmVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczOTI2ODUsImV4cCI6MjEwMjk2ODY4NX0.108UwPEGCjMPM8ZBElUysJBH9S_rFlqwTQGPP-VnLQM';
-const sb = (window.supabase && window.supabase.createClient)
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  : null;
-function getPersonalRaw(key){
-  try{ return localStorage.getItem('hg-personal:'+key); }catch(e){ return null; }
-}
-function setPersonalRaw(key, value){
-  try{ localStorage.setItem('hg-personal:'+key, value); }catch(e){}
-}
-
-/* ---------------- OneSignal 푸시 알림 ---------------- */
-const ONESIGNAL_APP_ID = '99b86598-b37d-451f-bc8d-27e9bee22593';
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-window.OneSignalDeferred.push(async function(OneSignal){
-  try{
-    await OneSignal.init({ appId: ONESIGNAL_APP_ID });
-  }catch(e){ console.error('OneSignal 초기화 실패', e); }
-});
-async function requestPushPermission(){
-  try{
-    if(window.Notification && Notification.permission === 'denied'){
-      showToast('브라우저에서 이미 알림이 차단돼 있어요. 사이트 설정에서 알림을 허용으로 바꿔주세요.', true);
-      return;
-    }
-    await new Promise((resolve, reject)=>{
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      window.OneSignalDeferred.push(async function(OneSignal){
-        try{ await OneSignal.Notifications.requestPermission(); resolve(); }
-        catch(e){ reject(e); }
-      });
-      setTimeout(()=>reject(new Error('timeout')), 8000);
-    });
-    showToast('알림 설정이 완료됐어요 🔔');
-  }catch(e){
-    console.error('푸시 권한 요청 실패:', e);
-    showToast('알림 권한 요청에 실패했어요 (' + (e && e.message ? e.message : '원인 불명') + ')', true);
-  }
-}
-function pushPermissionStatusText(){
-  try{
-    if(window.Notification && Notification.permission === 'granted') return '알림이 켜져 있어요 ✅';
-    if(window.Notification && Notification.permission === 'denied') return '알림이 차단되어 있어요. 브라우저 설정에서 허용해주세요.';
-    return '아직 알림을 받도록 설정하지 않았어요.';
-  }catch(e){ return '이 브라우저는 알림을 지원하지 않을 수 있어요.'; }
-}
-async function sendPushNotification(title, message){
-  try{
-    const res = await fetch('/.netlify/functions/send-push', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, message })
-    });
-    if(!res.ok){ console.error('푸시 알림 전송 실패:', await res.text()); }
-  }catch(e){
-    console.error('푸시 알림 전송 실패', e);
-  }
-}
 const CAMERA_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15"><path d="M9.4 3.6a1 1 0 0 1 .8-.4h3.6a1 1 0 0 1 .8.4L15.6 5.6H19a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7.6a2 2 0 0 1 2-2h3.4l1-2z" fill="currentColor"></path><circle cx="12" cy="12.6" r="3.3" fill="#fff"></circle><circle cx="12" cy="12.6" r="1.9" fill="currentColor"></circle></svg>';
-const ALBUM_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15"><rect x="3" y="4" width="18" height="16" rx="2.4" fill="currentColor"></rect><circle cx="8.2" cy="9.5" r="1.9" fill="#fff"></circle><path d="M4 17.5l4.6-5 3.6 3.8 2.6-2.9L20 17.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
 const STORE_LAT = 37.4016411;
 const STORE_LNG = 126.723068;
 const GEOFENCE_RADIUS_M = 100;
@@ -1415,7 +1344,6 @@ async function addOrderRequest(note, photoUrl){
   renderAll();
   showToast('발주요청이 등록됐어요 🧾');
   await saveOrders();
-  sendPushNotification('🧾 새 발주요청', `${name}님이 발주요청을 등록했어요: ${note || '(사진 첨부)'}`);
 }
 function orderShareText(order){
   const lines=[
@@ -1469,6 +1397,7 @@ async function toggleOrderStatus(id){
   await logAdminAction(target&&target.status==='pending'?'발주 완료':'발주 되돌리기',target&&target.note||'사진 발주요청');
 }
 async function deleteOrderRequest(id){
+  if(!isSuperAdmin()){ showToast('발주 기록 영구 삭제는 최고관리자만 가능해요',true); return; }
   const target=state.orders.find(o=>o.id===id);
   if(!(await confirmDialog('이 발주요청을 삭제할까요?'))) return;
   state.orders = state.orders.filter(o=>o.id!==id);
@@ -1487,12 +1416,6 @@ async function setHomeSubTab(tab){
 }
 function openOrderCamera(){
   const inp = document.getElementById('orderCameraInput');
-  inp.value = '';
-  inp.click();
-}
-function openOrderAlbum(){
-  state.pendingAlbumHandler = 'handleOrderCapturedPhoto';
-  const inp = document.getElementById('sharedAlbumInput');
   inp.value = '';
   inp.click();
 }
@@ -1525,12 +1448,6 @@ function openParcelCamera(){
   const inp=document.getElementById('parcelCameraInput');
   if(!inp) return;
   inp.value='';
-  inp.click();
-}
-function openParcelAlbum(){
-  state.pendingAlbumHandler = 'handleParcelCapturedPhotos';
-  const inp = document.getElementById('sharedAlbumInput');
-  inp.value = '';
   inp.click();
 }
 async function handleParcelCapturedPhotos(files){
@@ -1824,13 +1741,6 @@ function openProfitCamera(){
   inp.value='';
   inp.click();
 }
-function openProfitAlbum(){
-  if(!state.isAdmin){ showToast('관리자만 사용할 수 있어요', true); return; }
-  state.pendingAlbumHandler = 'handleProfitCapturedPhoto';
-  const inp = document.getElementById('sharedAlbumInput');
-  inp.value = '';
-  inp.click();
-}
 async function handleProfitCapturedPhoto(file){
   if(!state.isAdmin || !file) return;
   let dataUrl;
@@ -1959,7 +1869,6 @@ function renderProfitTab(){
         ${photo}
         <div class="profit-actions">
           <button type="button" class="profit-camera-btn" data-action="profitCameraBtn">${CAMERA_ICON_SVG} 카메라</button>
-          <button type="button" class="profit-camera-btn" data-action="profitAlbumBtn">${ALBUM_ICON_SVG} 앨범</button>
           <button type="button" class="profit-save-btn" data-action="profitSave">이 날짜에 저장</button>
         </div>
         <div class="profit-save-meta">${meta}</div>
@@ -1973,17 +1882,9 @@ function startOfWeek(d){ const nd=new Date(d.getFullYear(),d.getMonth(),d.getDat
 
 async function loadJSON(key, shared, fallback){
   try{
-    if(shared){
-      if(!sb) return fallback;
-      const { data, error } = await sb.from('kv_store').select('value').eq('key', key).maybeSingle();
-      if(error) throw error;
-      if(data && data.value != null) return JSON.parse(data.value);
-      return fallback;
-    } else {
-      const raw = getPersonalRaw(key);
-      if(raw) return JSON.parse(raw);
-      return fallback;
-    }
+    const res = await window.storage.get(key, shared);
+    if(res && res.value) return JSON.parse(res.value);
+    return fallback;
   }catch(e){ return fallback; }
 }
 let __toastTimer = null;
@@ -1996,17 +1897,10 @@ function showToast(msg, isError){
   __toastTimer = setTimeout(()=>{ t.className = 'toast'; }, 3200);
 }
 async function saveJSON(key, value, shared){
-  try{
-    if(shared){
-      if(!sb) throw new Error('Supabase 연결 안 됨');
-      const { error } = await sb.from('kv_store').upsert({ key, value: JSON.stringify(value) }, { onConflict: 'key' });
-      if(error) throw error;
-    } else {
-      setPersonalRaw(key, JSON.stringify(value));
-    }
-  }catch(e){
+  try{ await window.storage.set(key, JSON.stringify(value), shared); }
+  catch(e){
     console.error('저장 실패:', key, e);
-    showToast('저장 실패 — 인터넷 연결을 확인해주세요', true);
+    showToast('저장 실패 — 게시(Publish) 여부와 요금제를 확인해주세요', true);
   }
 }
 function isSuperAdmin(){ return state.authRole==='superadmin'; }
@@ -2029,7 +1923,7 @@ let state = {
   schedWeekStart: startOfWeek(today), scheduleData:{}, scheduleImage:null, scheduleNote:'',
   mainTab:'home', hideCompleted:false, pendingPhotoSection:null, isAdmin:false,
   recurringTasks:[], noticeDraftTitle:'', noticeDraftBody:'', noticeDraftPhoto:null, noticeExpandedIds:[],
-  noticeDraftCategory:'hall', noticeFilterCategory:'all', noticeSearchQuery:'',
+  noticeDraftCategory:'hall', noticeFilterCategory:'all',
   geoStatus:'idle', geoDistance:null,
   homeSubTab:'check', orders:[], orderDraftPhoto:null, orderDraftNote:'', orderNotices:[], otherInventoryData:{items:{}},
   authRole:null, loginPrefillName:'', openPhotoGalleries:{},
@@ -2123,7 +2017,7 @@ function updatePinDots(){
   dots.forEach((d,i)=>d.classList.toggle('on', i<adminPinBuffer.length));
 }
 async function persistCurrentName(name){
-  setPersonalRaw(NAME_KEY, name);
+  try{ await window.storage.set(NAME_KEY, name, false); }catch(e){}
 }
 async function finishLogin(role, name){
   name=(name||'').trim();
@@ -2187,7 +2081,7 @@ function backspaceAdminPin(){
 async function logoutUser(){
   if(!(await confirmDialog('로그아웃할까요?'))) return;
   clearAuthSession();
-  setPersonalRaw(NAME_KEY, '');
+  try{ await window.storage.set(NAME_KEY, '', false); }catch(e){}
   state.authRole=null;
   state.isAdmin=false;
   state.editMode=false;
@@ -2312,13 +2206,6 @@ function resizeImageFile(file, maxDim, quality){
 function openCameraForSection(sectionId){
   state.pendingPhotoSection = sectionId;
   const inp = document.getElementById('cameraInput');
-  inp.value = '';
-  inp.click();
-}
-function openAlbumForSection(sectionId){
-  state.pendingPhotoSection = sectionId;
-  state.pendingAlbumHandler = 'handleCapturedPhoto';
-  const inp = document.getElementById('sharedAlbumInput');
   inp.value = '';
   inp.click();
 }
@@ -2552,13 +2439,6 @@ function openNoticeCamera(){
   inp.value = '';
   inp.click();
 }
-function openNoticeAlbum(){
-  if(!state.isAdmin){ showToast('공지 작성은 관리자만 가능해요',true); return; }
-  state.pendingAlbumHandler = 'handleNoticeCapturedPhoto';
-  const inp = document.getElementById('sharedAlbumInput');
-  inp.value = '';
-  inp.click();
-}
 async function handleNoticeCapturedPhoto(file){
   if(!state.isAdmin) return;
   if(!file) return;
@@ -2688,18 +2568,21 @@ function showCheckinOverlay(type, name, hm){
   const subEl = document.getElementById('checkinSub');
   const taglineEl = document.getElementById('checkinTagline');
   const ctaEl = document.getElementById('checkinCtaBtn');
+  const overlayEl = document.getElementById('checkinOverlay');
   if(type==='in'){
     titleEl.textContent = '출근했어요';
     taglineEl.textContent = '오늘도 화이팅 잘 부탁해요';
     ctaEl.textContent = '좋아요, 오늘 할 일 볼게요';
+    overlayEl.classList.remove('out');
   } else {
     titleEl.textContent = '퇴근했어요';
     taglineEl.textContent = '오늘 하루도 정말 수고하셨어요';
     ctaEl.textContent = '확인했어요';
+    overlayEl.classList.add('out');
   }
   subEl.textContent = `${name} · ${hm}`;
   state.pendingCheckinType = type;
-  document.getElementById('checkinOverlay').classList.add('show');
+  overlayEl.classList.add('show');
 }
 function closeCheckinOverlay(){
   document.getElementById('checkinOverlay').classList.remove('show');
@@ -2749,13 +2632,6 @@ async function clearScheduleImage(){
 function openSchedCamera(){
   if(!state.isAdmin){ showToast('스케줄표 등록은 관리자만 가능해요',true); return; }
   const inp = document.getElementById('schedCameraInput');
-  inp.value = '';
-  inp.click();
-}
-function openSchedAlbum(){
-  if(!state.isAdmin){ showToast('스케줄표 등록은 관리자만 가능해요',true); return; }
-  state.pendingAlbumHandler = 'handleSchedCapturedPhoto';
-  const inp = document.getElementById('sharedAlbumInput');
   inp.value = '';
   inp.click();
 }
@@ -3206,7 +3082,7 @@ function memoHtml(rec){
   ` : '';
   return `
     <div class="panel">
-      <h3>✏️ 인수인계 메모<button type="button" class="cam-btn" data-action="sectionCamera" data-section="__memo__" title="사진 촬영">${CAMERA_ICON_SVG}</button><button type="button" class="cam-btn" data-action="sectionAlbum" data-section="__memo__" title="앨범에서 선택">${ALBUM_ICON_SVG}</button></h3>
+      <h3>✏️ 인수인계 메모<button type="button" class="cam-btn" data-action="sectionCamera" data-section="__memo__" title="사진 촬영">${CAMERA_ICON_SVG}</button></h3>
       <textarea class="memo-box" data-action="memoField" placeholder="다음 근무자에게 전달할 내용을 남겨주세요">${escapeHtml(rec.memo||'')}</textarea>
       ${photosHtml}
     </div>
@@ -3312,7 +3188,7 @@ function sectionsHtml(){
     return `
       <div class="section ${isOpen?'open':''}">
         <div class="section-head" data-action="sectionToggle" data-section="${sec.id}">
-          <span class="name">${escapeHtml(sec.name)}${showCamBtn?`<button type="button" class="cam-btn" data-action="sectionCamera" data-section="${sec.id}" title="사진 촬영">${CAMERA_ICON_SVG}</button><button type="button" class="cam-btn" data-action="sectionAlbum" data-section="${sec.id}" title="앨범에서 선택">${ALBUM_ICON_SVG}</button>`:''}</span>
+          <span class="name">${escapeHtml(sec.name)}${showCamBtn?`<button type="button" class="cam-btn" data-action="sectionCamera" data-section="${sec.id}" title="사진 촬영">${CAMERA_ICON_SVG}</button>`:''}</span>
           <span class="meta">
             <span class="count">${doneCount}/${items.length}</span>
             <span class="mini-bar"><i style="width:${secPct}%"></i></span>
@@ -3469,7 +3345,7 @@ function orderGroupHtml(list){
           <div class="order-card-actions">
             <button class="order-kakao-share" data-action="shareOrderKakao" data-id="${o.id}">💬 카카오톡 공유</button>
             ${state.isAdmin?`<button class="${isDone?'undo':'ok'}" data-action="toggleOrderStatus" data-id="${o.id}">${isDone?'↺ 되돌리기':'✓ 완료 처리'}</button>`:''}
-            <button class="danger" data-action="deleteOrderRequest" data-id="${o.id}">× 삭제</button>
+            ${isSuperAdmin()?`<button class="danger" data-action="deleteOrderRequest" data-id="${o.id}">× 삭제</button>`:''}
           </div>
         </div>
       `;
@@ -3482,7 +3358,7 @@ function orderGroupHtml(list){
         </div>
         <button class="order-share-mini" data-action="shareOrderKakao" data-id="${o.id}">톡 공유</button>
         ${state.isAdmin?`<button class="order-toggle-btn ${isDone?'done':''}" data-action="toggleOrderStatus" data-id="${o.id}" title="${isDone?'요청중으로 되돌리기':'완료 처리'}">${isDone?'↺':'✓'}</button>`:''}
-        <button class="del" data-action="deleteOrderRequest" data-id="${o.id}">×</button>
+        ${isSuperAdmin()?`<button class="del" data-action="deleteOrderRequest" data-id="${o.id}">×</button>`:''}
       </div>
     `;
   };
@@ -3534,7 +3410,6 @@ function orderRequestHtml(){
       ` : ''}
       <div style="display:flex;gap:8px;margin-top:8px;">
         <button type="button" class="notice-cam-btn" data-action="orderCameraBtn">${CAMERA_ICON_SVG} 사진</button>
-        <button type="button" class="notice-cam-btn" data-action="orderAlbumBtn">${ALBUM_ICON_SVG} 앨범</button>
         <button type="button" class="notice-submit-btn" data-action="orderAdd">발주요청 등록</button>
       </div>
     </div>
@@ -3575,9 +3450,9 @@ function inventoryHtml(){
       </div>` : '';
     return `
       <div class="section open">
-        <div class="inv-cat-head">
+        <div class="section-head" style="cursor:default;">
           <span class="name">${escapeHtml(sec.name)}</span>
-          <span class="count">${doneHere}/${items.length}</span>
+          <span class="meta"><span class="count">${doneHere}/${items.length}</span></span>
         </div>
         <div class="items">${rows || '<div class="empty-note">등록된 재고 항목이 없어요</div>'}${addRow}</div>
       </div>
@@ -3612,7 +3487,7 @@ function scheduleImageHtml(){
   if(img && img.url){
     return `
       <div class="panel">
-        <h3>이번 달 스케줄표${state.isAdmin?`<button type="button" class="cam-btn" data-action="schedCameraBtn" title="사진 촬영">${CAMERA_ICON_SVG}</button><button type="button" class="cam-btn" data-action="schedAlbumBtn" title="앨범에서 선택">${ALBUM_ICON_SVG}</button>`:''}</h3>
+        <h3>이번 달 스케줄표${state.isAdmin?`<button type="button" class="cam-btn" data-action="schedCameraBtn" title="사진 촬영">${CAMERA_ICON_SVG}</button>`:''}</h3>
         <img src="${escapeHtml(img.url)}" alt="이달의 스케줄" class="sched-image" data-action="openManual" data-url="${escapeHtml(img.url)}">
         <div class="item-meta" style="margin-top:8px;">${escapeHtml(img.by)} · ${img.at} · 눌러서 크게 보기</div>
         ${state.isAdmin?`<div class="add-form" style="margin-top:12px;">
@@ -3626,7 +3501,7 @@ function scheduleImageHtml(){
   if(!state.isAdmin) return `<div class="panel"><h3>이번 달 스케줄표</h3><div class="empty-note" style="padding:20px 4px;">아직 등록된 스케줄 이미지가 없어요.</div></div>`;
   return `
     <div class="panel">
-      <h3>이번 달 스케줄표<button type="button" class="cam-btn" data-action="schedCameraBtn" title="사진 촬영">${CAMERA_ICON_SVG}</button><button type="button" class="cam-btn" data-action="schedAlbumBtn" title="앨범에서 선택">${ALBUM_ICON_SVG}</button></h3>
+      <h3>이번 달 스케줄표<button type="button" class="cam-btn" data-action="schedCameraBtn" title="사진 촬영">${CAMERA_ICON_SVG}</button></h3>
       <div class="empty-note" style="padding:20px 4px;">이번 달 스케줄 이미지가 없어요.<br>카메라 버튼으로 바로 촬영하거나, 사진/캡처를 구글드라이브 등에 올리고 링크를 붙여넣어주세요.</div>
       <div class="add-form">
         <input type="text" id="schedImageInput" placeholder="이미지 링크 붙여넣기">
@@ -3638,29 +3513,15 @@ function scheduleImageHtml(){
 function renderScheduleTab(){
   return scheduleImageHtml() + scheduleHtml();
 }
-function noticeFeedHtml(){
-  const q = (state.noticeSearchQuery||'').trim().toLowerCase();
-  const filtered = state.notices.filter(n=>{
-    const catOk = state.noticeFilterCategory==='all' || (n.category==='delivery'?'delivery':'hall')===state.noticeFilterCategory;
-    if(!catOk) return false;
-    if(!q) return true;
-    const title = (n.title||'').toLowerCase();
-    const body = (n.body||n.text||'').toLowerCase();
-    return title.includes(q) || body.includes(q);
-  });
+function renderNoticeTab(){
+  const filtered = state.noticeFilterCategory==='all'
+    ? state.notices
+    : state.notices.filter(n=> (n.category==='delivery'?'delivery':'hall')===state.noticeFilterCategory);
   const sorted = filtered.slice().sort((a,b)=> (b.pinned?1:0) - (a.pinned?1:0));
   const list = sorted.slice(0,50);
-  return list.length
+  const feed = list.length
     ? list.map(noticeCardHtml).join('')
-    : `<div class="panel"><div class="empty-note">${q ? '검색 결과가 없어요.' : '아직 등록된 공지사항이 없어요.'}</div></div>`;
-}
-function refreshNoticeFeed(){
-  const host = document.getElementById('noticeFeedHost');
-  if(host) host.innerHTML = noticeFeedHtml();
-  const clearBtn = document.getElementById('noticeSearchClearBtn');
-  if(clearBtn) clearBtn.style.display = state.noticeSearchQuery ? '' : 'none';
-}
-function renderNoticeTab(){
+    : `<div class="panel"><div class="empty-note">아직 등록된 공지사항이 없어요.</div></div>`;
   const compose = state.isAdmin ? `<div class="panel notice-compose">
       <h3>📣 공지사항 작성</h3>
       <div class="notice-cat-toggle">
@@ -3677,23 +3538,17 @@ function renderNoticeTab(){
       ` : ''}
       <div style="display:flex;gap:8px;margin-top:4px;">
         <button type="button" class="notice-cam-btn" data-action="noticeCameraBtn">${CAMERA_ICON_SVG} 사진</button>
-        <button type="button" class="notice-cam-btn" data-action="noticeAlbumBtn">${ALBUM_ICON_SVG} 앨범</button>
         <button type="button" class="notice-submit-btn" data-action="noticeSubmit">등록하기</button>
       </div>
     </div>` : '';
   return `
-    <div class="notice-search-wrap">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="notice-search-ic"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input type="text" id="noticeSearchInput" class="notice-search-input" placeholder="공지 제목 또는 내용 검색" data-action="noticeSearchField" value="${escapeHtml(state.noticeSearchQuery||'')}">
-      <button type="button" id="noticeSearchClearBtn" class="notice-search-clear" data-action="noticeSearchClear" style="display:${state.noticeSearchQuery?'':'none'};">×</button>
-    </div>
     ${compose}
     <div class="notice-filter-row">
       <button type="button" class="notice-filter-btn ${state.noticeFilterCategory==='all'?'on':''}" data-action="noticeSetFilter" data-cat="all">전체</button>
       <button type="button" class="notice-filter-btn ${state.noticeFilterCategory==='hall'?'on':''}" data-action="noticeSetFilter" data-cat="hall">🏠 홀</button>
       <button type="button" class="notice-filter-btn ${state.noticeFilterCategory==='delivery'?'on':''}" data-action="noticeSetFilter" data-cat="delivery">🛵 배달</button>
     </div>
-    <div id="noticeFeedHost">${noticeFeedHtml()}</div>
+    ${feed}
   `;
 }
 function parcelEntryCardHtml(entry){
@@ -3740,7 +3595,6 @@ function renderParcelTab(){
       <div class="parcel-head"><h3>📷 택배 사진 등록</h3><span class="parcel-count-badge">${drafts.length}장</span></div>
       <div class="empty-note" style="text-align:left;padding:0 0 11px;">도착한 택배를 촬영해주세요. 카메라 버튼을 다시 누르면 사진을 여러 장 추가할 수 있어요.</div>
       <button type="button" class="parcel-camera-btn" data-action="parcelCameraBtn">${CAMERA_ICON_SVG} 카메라로 촬영하기</button>
-      <button type="button" class="parcel-camera-btn" data-action="parcelAlbumBtn" style="margin-top:8px;">${ALBUM_ICON_SVG} 앨범에서 선택</button>
       ${drafts.length?`<div class="parcel-draft-grid">${drafts.map(photo=>`
         <div class="parcel-photo-box">
           <img src="${escapeHtml(photo.url||'')}" data-action="openManual" data-url="${escapeHtml(photo.url||'')}" alt="등록 전 택배 사진">
@@ -3749,7 +3603,6 @@ function renderParcelTab(){
       <textarea class="memo-box" id="parcelMemoInput" data-action="parcelMemoField" placeholder="택배 내용 또는 보관 위치 메모 (선택)" style="margin-top:10px;">${escapeHtml(state.parcelDraftMemo||'')}</textarea>
       <div class="parcel-submit-row">
         <button type="button" class="notice-cam-btn" data-action="parcelCameraBtn">${CAMERA_ICON_SVG} 사진 추가</button>
-        <button type="button" class="notice-cam-btn" data-action="parcelAlbumBtn">${ALBUM_ICON_SVG} 앨범</button>
         <button type="button" class="notice-submit-btn" data-action="parcelSubmit">입고 등록</button>
       </div>
     </div>
@@ -3852,10 +3705,6 @@ function renderMoreTab(){
       <div class="more-row" data-action="goToParcel" style="cursor:pointer;">
         <span>택배 입고</span>
         <span style="display:flex;align-items:center;gap:7px;"><b style="color:var(--amber);font-size:11px;">확인 전 ${(state.parcelEntries||[]).filter(entry=>entry.status!=='confirmed').length}건</b><span style="color:var(--text-faint);font-size:16px;">›</span></span>
-      </div>
-      <div class="more-row">
-        <span>🔔 발주요청 알림<div style="font-size:11px;color:var(--text-faint);font-weight:500;margin-top:3px;">${pushPermissionStatusText()}</div></span>
-        <button data-action="requestPushBtn">알림 받기</button>
       </div>
     </div>
     <div class="panel" style="margin-top:12px;">
@@ -3992,15 +3841,8 @@ appEl.addEventListener('click', async (e)=>{
   else if(a==='noticeTogglePin'){ await toggleNoticePin(el.dataset.id); }
   else if(a==='noticeSubmit'){ await submitNotice(); }
   else if(a==='noticeCameraBtn'){ openNoticeCamera(); }
-  else if(a==='noticeAlbumBtn'){ openNoticeAlbum(); }
   else if(a==='noticeSetCategory'){ setNoticeDraftCategory(el.dataset.cat); }
   else if(a==='noticeSetFilter'){ setNoticeFilter(el.dataset.cat); }
-  else if(a==='noticeSearchClear'){
-    state.noticeSearchQuery = '';
-    const inp = document.getElementById('noticeSearchInput');
-    if(inp) inp.value = '';
-    refreshNoticeFeed();
-  }
   else if(a==='homeSubTab'){ await setHomeSubTab(el.dataset.sub); }
   else if(a==='taskBoardDate'){ setTaskBoardView(el.dataset.view); }
   else if(a==='taskBoardAdd'){ await addTaskBoardItem(el.dataset.task); }
@@ -4017,7 +3859,6 @@ appEl.addEventListener('click', async (e)=>{
     await addOrderRequest(note.value, state.orderDraftPhoto);
   }
   else if(a==='orderCameraBtn'){ openOrderCamera(); }
-  else if(a==='orderAlbumBtn'){ openOrderAlbum(); }
   else if(a==='removeOrderDraftPhoto'){ removeOrderDraftPhoto(); }
   else if(a==='shareOrderKakao'){ await shareOrderToKakao(el.dataset.id); }
   else if(a==='toggleOrderStatus'){ await toggleOrderStatus(el.dataset.id); }
@@ -4026,10 +3867,8 @@ appEl.addEventListener('click', async (e)=>{
   else if(a==='orderHistoryBack'){ state.mainTab='more'; renderAll(); window.scrollTo(0,0); }
   else if(a==='goToSchedule'){ state.mainTab='schedule'; renderAll(); window.scrollTo(0,0); }
   else if(a==='goToParcel'){ await loadParcelEntries(); state.mainTab='parcel'; renderAll(); window.scrollTo(0,0); }
-  else if(a==='requestPushBtn'){ await requestPushPermission(); renderAll(); }
   else if(a==='parcelBack'){ state.mainTab='more'; renderAll(); window.scrollTo(0,0); }
   else if(a==='parcelCameraBtn'){ openParcelCamera(); }
-  else if(a==='parcelAlbumBtn'){ openParcelAlbum(); }
   else if(a==='parcelDraftRemove'){ removeParcelDraftPhoto(el.dataset.id); }
   else if(a==='parcelSubmit'){ await submitParcelEntry(); }
   else if(a==='parcelToggleStatus'){ await toggleParcelStatus(el.dataset.id); }
@@ -4044,7 +3883,6 @@ appEl.addEventListener('click', async (e)=>{
   else if(a==='profitNextMonth'){ if(!isSuperAdmin()){ showToast('과거 손익 조회는 최고관리자만 가능해요',true); return; } await changeProfitMonth(1); }
   else if(a==='profitDateSelect'){ if(!isSuperAdmin()){ showToast('과거 손익 조회는 최고관리자만 가능해요',true); return; } await selectProfitDate(el.dataset.date); }
   else if(a==='profitCameraBtn'){ openProfitCamera(); }
-  else if(a==='profitAlbumBtn'){ openProfitAlbum(); }
   else if(a==='profitPhotoRemove'){ if(!isSuperAdmin()){ showToast('손익 사진 삭제는 최고관리자만 가능해요',true); return; } removeProfitPhoto(); }
   else if(a==='profitSave'){ await saveProfitSelectedDate(); }
   else if(a==='removeNoticeDraftPhoto'){ removeNoticeDraftPhoto(); }
@@ -4074,13 +3912,11 @@ appEl.addEventListener('click', async (e)=>{
     if(inp && inp.value.trim()){ await setScheduleImage(inp.value); renderAll(); }
   }
   else if(a==='schedCameraBtn'){ openSchedCamera(); }
-  else if(a==='schedAlbumBtn'){ openSchedAlbum(); }
   else if(a==='schedImageClear'){
     if(await confirmDialog('이 달의 스케줄 이미지를 삭제할까요?')){ await clearScheduleImage(); renderAll(); }
   }
   else if(a==='openManual'){ openManual(el.dataset.url); }
   else if(a==='sectionCamera'){ openCameraForSection(el.dataset.section); }
-  else if(a==='sectionAlbum'){ openAlbumForSection(el.dataset.section); }
   else if(a==='deleteSectionPhoto'){ await deleteSectionPhoto(el.dataset.section, el.dataset.photo); }
   else if(a==='previewUrlField'){
     const inp = document.getElementById(el.dataset.target);
@@ -4092,10 +3928,6 @@ appEl.addEventListener('click', async (e)=>{
 appEl.addEventListener('input', (e)=>{
   const t=e.target;
   if(t && t.hasAttribute && t.hasAttribute('data-profit-input')) updateProfitLive();
-  if(t && t.id==='noticeSearchInput'){
-    state.noticeSearchQuery = t.value;
-    refreshNoticeFeed();
-  }
 });
 appEl.addEventListener('focusout', async (e)=>{
   const t = e.target;
@@ -4182,19 +4014,6 @@ document.getElementById('cameraInput').addEventListener('change', async (e)=>{
   const file = e.target.files && e.target.files[0];
   if(file) await handleCapturedPhoto(file);
   e.target.value = '';
-});
-document.getElementById('sharedAlbumInput').addEventListener('change', async (e)=>{
-  const files = e.target.files;
-  const handlerName = state.pendingAlbumHandler;
-  e.target.value = '';
-  if(!files || !files.length || !handlerName) return;
-  if(handlerName==='handleParcelCapturedPhotos') await handleParcelCapturedPhotos(files);
-  else if(handlerName==='handleCapturedPhoto') await handleCapturedPhoto(files[0]);
-  else if(handlerName==='handleNoticeCapturedPhoto') await handleNoticeCapturedPhoto(files[0]);
-  else if(handlerName==='handleOrderCapturedPhoto') await handleOrderCapturedPhoto(files[0]);
-  else if(handlerName==='handleSchedCapturedPhoto') await handleSchedCapturedPhoto(files[0]);
-  else if(handlerName==='handleProfitCapturedPhoto') await handleProfitCapturedPhoto(files[0]);
-  state.pendingAlbumHandler = null;
 });
 document.getElementById('noticeCameraInput').addEventListener('change', async (e)=>{
   const file = e.target.files && e.target.files[0];
@@ -4298,8 +4117,8 @@ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeManual(); 
     state.isAdmin = false;
     state.myName = '';
     try{
-      const raw = getPersonalRaw(NAME_KEY);
-      state.loginPrefillName = raw || '';
+      const r = await window.storage.get(NAME_KEY, false);
+      state.loginPrefillName = (r&&r.value) ? r.value : '';
     }catch(e){ state.loginPrefillName=''; }
   }
 
