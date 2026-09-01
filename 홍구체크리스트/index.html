@@ -512,6 +512,8 @@
   .taskboard-category{margin-top:10px;border-radius:18px;overflow:hidden;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-card);}
   .taskboard-category-head{display:flex;align-items:center;justify-content:space-between;min-height:43px;padding:0 14px;background:var(--blue);color:#fff;font-size:13px;font-weight:800;}
   .taskboard-category-head span:last-child{font-size:10.5px;opacity:.86;}
+  .inv-cat-head{display:flex;align-items:center;justify-content:space-between;min-height:43px;padding:0 14px;background:var(--blue);color:#fff;font-size:13px;font-weight:800;}
+  .inv-cat-head span:last-child{font-size:10.5px;opacity:.86;}
   .taskboard-magnets{display:flex;flex-wrap:wrap;gap:8px;padding:12px;min-height:50px;}
   .taskboard-magnet{border:1px solid #D9DEE7;border-radius:8px;background:#FBFCFE;color:var(--text);font-family:inherit;font-size:12px;font-weight:800;line-height:1.35;padding:9px 11px;cursor:pointer;box-shadow:0 2px 5px rgba(20,30,60,.06);}
   .taskboard-magnet:active{transform:scale(.97);background:var(--blue-50);border-color:#B9D0F5;}
@@ -2360,7 +2362,6 @@ function daysSinceIso(iso){
 
 /* ---------------- 공지사항 ---------------- */
 async function submitNotice(){
-  if(!state.isAdmin){ showToast('공지 등록은 관리자만 가능해요',true); return; }
   const title = (state.noticeDraftTitle||'').trim();
   const body = (state.noticeDraftBody||'').trim();
   if(!title && !body){ showToast('내용을 입력해주세요', true); return; }
@@ -2434,13 +2435,11 @@ function toggleNoticeExpand(id){
   renderAll();
 }
 function openNoticeCamera(){
-  if(!state.isAdmin){ showToast('공지 작성은 관리자만 가능해요',true); return; }
   const inp = document.getElementById('noticeCameraInput');
   inp.value = '';
   inp.click();
 }
 async function handleNoticeCapturedPhoto(file){
-  if(!state.isAdmin) return;
   if(!file) return;
   let dataUrl;
   try{ dataUrl = await resizeImageFile(file, 1000, 0.65); }
@@ -3450,9 +3449,9 @@ function inventoryHtml(){
       </div>` : '';
     return `
       <div class="section open">
-        <div class="section-head" style="cursor:default;">
-          <span class="name">${escapeHtml(sec.name)}</span>
-          <span class="meta"><span class="count">${doneHere}/${items.length}</span></span>
+        <div class="inv-cat-head">
+          <span>${escapeHtml(sec.name)}</span>
+          <span>${doneHere}/${items.length}</span>
         </div>
         <div class="items">${rows || '<div class="empty-note">등록된 재고 항목이 없어요</div>'}${addRow}</div>
       </div>
@@ -3522,7 +3521,7 @@ function renderNoticeTab(){
   const feed = list.length
     ? list.map(noticeCardHtml).join('')
     : `<div class="panel"><div class="empty-note">아직 등록된 공지사항이 없어요.</div></div>`;
-  const compose = state.isAdmin ? `<div class="panel notice-compose">
+  const compose = `<div class="panel notice-compose">
       <h3>📣 공지사항 작성</h3>
       <div class="notice-cat-toggle">
         <button type="button" class="notice-cat-btn ${state.noticeDraftCategory!=='delivery'?'on':''}" data-action="noticeSetCategory" data-cat="hall">🏠 홀 관련</button>
@@ -3540,7 +3539,7 @@ function renderNoticeTab(){
         <button type="button" class="notice-cam-btn" data-action="noticeCameraBtn">${CAMERA_ICON_SVG} 사진</button>
         <button type="button" class="notice-submit-btn" data-action="noticeSubmit">등록하기</button>
       </div>
-    </div>` : '';
+    </div>`;
   return `
     ${compose}
     <div class="notice-filter-row">
