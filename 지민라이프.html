@@ -380,7 +380,7 @@ const DEF={
   ledger:{items:[],budgets:{},adj:{}},
   assets:{accounts:[],snaps:{}},
   fixed:{items:[]},
-  stocks:{items:[],fx:1380},
+  stocks:{items:[],fx:1380,fxAuto:true,at:0},
   workout:{items:[],plan:['','','','','','','']},
   bucket:{items:[]},
   biz:{ideas:[],visits:[],self:{}},
@@ -796,18 +796,18 @@ function viewStock(){
     <div style="margin-top:6px" class="${pnlCls(st.pnl)}"><b>${signWon(st.pnl)}</b> (${pct(st.rate)})</div>
     <div class="cols two" style="margin-top:14px">
       <div><div class="lbl">투자 원금</div><div class="v">${manwon(st.cost)}</div></div>
-      <div class="tap" data-act="fx" style="cursor:pointer"><div class="lbl">환율 (탭해서 수정)</div><div class="v">$1 = ${fx.toLocaleString('ko-KR')}원</div></div>
+      <div class="tap" data-act="fx" style="cursor:pointer"><div class="lbl">환율 · ${S.stocks.fxAuto!==false?(S.stocks.at?'자동 '+hhmm(S.stocks.at):'자동'):'직접 입력'}</div><div class="v">$1 = ${fx.toLocaleString('ko-KR')}원</div></div>
     </div>
   </section>
   <section class="card">
     <div class="card-h"><h3>보유 종목</h3><span style="display:flex;gap:6px">${S.stocks.items.length?'<button class="add-btn" data-act="price-all">현재가 수정</button>':''}<button class="add-btn" data-act="s-add">종목 추가</button></span></div>
     ${list.length?list.map(s=>{const v=(+s.price)*(+s.qty),c=(+s.avg)*(+s.qty),p=v-c,rt=c?p/c*100:0;const w=st.value?stockKRW(s,'price')/st.value*100:0;
       return `<div class="row tap" data-act="s-edit" data-id="${s.id}">
-      <div class="main"><div class="t">${esc(s.name)} <span class="muted">${esc(s.code||'')}</span></div>
+      <div class="main"><div class="t">${esc(s.name)} <span class="muted">${esc(s.code||'')}</span>${s.qFail?' <span class="chip red">시세 못 찾음</span>':''}</div>
       <div class="s">${(+s.qty).toLocaleString('ko-KR')}주 · 평단 ${fmtPrice(s.avg,s.cur)} · 현재 ${fmtPrice(s.price,s.cur)}</div>
       <div class="bar thin"><i style="width:${w}%"></i></div></div>
       <div class="r"><div class="t">${fmtPrice(v,s.cur)}</div><div class="s ${pnlCls(p)}" style="font-weight:700">${pct(rt)}</div><div class="s ${pnlCls(p)}">${s.cur==='USD'?(p>=0?'+':'-')+'$'+Math.abs(p).toFixed(2):signWon(p)}</div></div></div>`;}).join(''):empty('보유 종목이 없어요','종목명, 수량, 평단, 현재가를 넣으면 수익률이 계산돼요')}
-    ${list.length?`<div class="muted" style="margin-top:8px">현재가는 직접 수정해요. 종목을 눌러 현재가·추가 매수를 반영하세요.</div>`:''}
+    ${list.length?`<div class="card-h" style="margin:10px 0 0"><div class="muted">${quoteNote?quoteNote+' · 현재가는 직접 수정해요':S.stocks.at?'현재가 자동 업데이트 · '+hhmm(S.stocks.at):'현재가를 자동으로 불러와요'}${list.some(s=>s.qFail)?'<br>시세 못 찾은 종목은 눌러서 티커를 넣어주세요 (예: 005930, AAPL)':''}</div><button class="add-btn" data-act="q-refresh">지금 업데이트</button></div>`:''}
   </section>
   <section class="card" id="calcCard">
     <div class="card-h"><h3>계산기</h3></div>
@@ -1561,6 +1561,33 @@ function viewMore(){
 }
 function subHead(){const t=tileOf(curKey());if(!t)return '';
   return `<div class="subhead"><button data-act="go" data-tab="more" aria-label="전체로">‹ 전체</button><b>${t.e} ${t.l}</b></div>`;}
+/* ---------- 시세·환율 자동 업데이트 ---------- */
+const QUOTE_API='/.netlify/functions/quote';
+let quoting=null,quoteNote='';
+const hhmm=t=>{const d=new Date(t);return z(d.getHours())+':'+z(d.getMinutes());};
+function refreshQuotes(force){
+  if(quoting)return quoting;const St=S.stocks;
+  if(!force&&Date.now()-(St.at||0)<60000)return Promise.resolve(null);
+  quoting=(async()=>{let ok=false,fxOk=false,n=0;
+    if(/^https?:/.test(location.protocol)&&St.items.length+(St.fxAuto!==false?1:0)){
+      try{const r=await fetch(QUOTE_API,{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({items:St.items.map(({id,code,name,cur,sym})=>({id,code,name,cur,sym}))})});
+        if(r.ok){const d=await r.json();ok=true;
+          if(d.fx&&+d.fx.rate&&St.fxAuto!==false){St.fx=Math.round(d.fx.rate*100)/100;fxOk=true;}
+          const fx=+St.fx||0;
+          St.items.forEach(s=>{const q=(d.quotes||{})[s.id];if(!q){s.qFail=1;return;}
+            let p=+q.price;const qc=q.cur==='USD'?'USD':'KRW';const mc=s.cur==='USD'?'USD':'KRW';
+            if(qc!==mc){if(!fx){s.qFail=1;return;}p=qc==='USD'?p*fx:p/fx;}
+            s.price=mc==='USD'?Math.round(p*100)/100:Math.round(p);s.sym=q.sym;if(!s.code&&q.code)s.code=q.code;s.qFail=0;s.qAt=Date.now();n++;});}
+      }catch(e){}}
+    if(!fxOk&&St.fxAuto!==false){
+      try{const d=await (await fetch('https://open.er-api.com/v6/latest/USD')).json();if(d&&d.rates&&+d.rates.KRW){St.fx=Math.round(d.rates.KRW*100)/100;fxOk=true;}}catch(e){}}
+    const note=ok?'':St.items.length?'시세 서버에 연결 못 했어요':'';const ch=note!==quoteNote;quoteNote=note;
+    if(ok||fxOk){St.at=Date.now();save('stocks');}
+    if((ok||fxOk||ch)&&!formCfg)render();
+    return {ok,fxOk,n};})().finally(()=>{quoting=null;});
+  return quoting;
+}
 function render(){
   const d=parse(today());$('#today').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+DOW[d.getDay()]+'요일';
   const pins=(S.ui.pins||[]).filter(tileOf);const ck=curKey();const pinnedActive=pins.includes(ck)&&U.tab!=='home';
@@ -1686,12 +1713,12 @@ const F={
     after:()=>{const n=autoFixed();if(n)pendingToast=`고정비 ${n}건을 가계부에 기록했어요`;}});},
   stock:id=>{const s=id&&S.stocks.items.find(x=>x.id===id);
     openForm({title:s?esc(s.name):'종목 추가',values:s||{},fields:[
-      {type:'row',items:[{key:'name',label:'종목명',req:1,ph:'예: 삼성전자'},{key:'code',label:'티커 (선택)',ph:'005930'}]},
+      {type:'row',items:[{key:'name',label:'종목명',req:1,ph:'예: 삼성전자'},{key:'code',label:'티커 (자동 시세)',ph:'005930 / AAPL'}]},
       {key:'cur',label:'통화',type:'chips',options:['KRW','USD'],def:'KRW'},
       {type:'row',items:[{key:'qty',label:'수량',type:'num',req:1},{key:'avg',label:'평균 단가',type:'num',req:1}]},
       {key:'price',label:'현재가',type:'num',req:1}],
       extra:s?[{label:'추가 매수 반영',fn:()=>buyMore(s)},{label:'물타기 계산',fn:()=>{closeSheet();fillCalc(s,'avg');}}]:null,
-      onSave:v=>{if(s)Object.assign(s,v);else S.stocks.items.push(Object.assign({id:uid()},v));save('stocks');},
+      onSave:v=>{if(s){if((v.code||'')!==(s.code||'')||v.name!==s.name)delete s.sym;Object.assign(s,v);}else S.stocks.items.push(Object.assign({id:uid()},v));save('stocks');setTimeout(()=>refreshQuotes(true),50);},
       onDelete:s?()=>{S.stocks.items=S.stocks.items.filter(x=>x!==s);save('stocks');}:null});},
   workout:id=>crud('workout','items',{title:'운동 기록',id,fields:[
     {key:'date',label:'날짜',type:'date'},
@@ -2041,7 +2068,12 @@ document.addEventListener('click',e=>{
     case 'f-add':F.fixed();break; case 'f-edit':F.fixed(id);break;
     case 's-add':F.stock();break; case 's-edit':F.stock(id);break;
     case 'calc-fill':{const s=S.stocks.items.find(x=>x.id===id);if(s)fillCalc(s);break;}
-    case 'fx':openForm({title:'환율 수정',values:{fx:S.stocks.fx},fields:[{key:'fx',label:'1달러 = ?원',type:'num',req:1}],onSave:v=>{S.stocks.fx=v.fx;save('stocks');}});break;
+    case 'fx':openForm({title:'환율',values:{fx:S.stocks.fx,mode:S.stocks.fxAuto!==false?'자동':'직접 입력'},fields:[
+      {key:'mode',label:'방식',type:'chips',options:['자동','직접 입력']},
+      {type:'info',html:'자동이면 실시간 환율로 바뀌어요. 직접 입력을 고르면 아래 값으로 고정돼요.'},
+      {key:'fx',label:'1달러 = ?원',type:'num',req:1}],
+      onSave:v=>{S.stocks.fxAuto=v.mode==='자동';if(!S.stocks.fxAuto)S.stocks.fx=v.fx;save('stocks');if(S.stocks.fxAuto)setTimeout(()=>refreshQuotes(true),50);}});break;
+    case 'q-refresh':{toast('시세 불러오는 중…');refreshQuotes(true).then(r=>{if(!r)return;toast(r.ok?`${r.n}종목 업데이트 · 환율 ${(+S.stocks.fx).toLocaleString('ko-KR')}원`:r.fxOk?'환율만 업데이트했어요 · 주식 시세 서버 연결 실패':'업데이트 실패 · 인터넷 연결을 확인해주세요');});break;}
     case 'w-add':F.workout();break; case 'w-edit':F.workout(id);break;
     case 'plan':openForm({title:'주간 운동 루틴',values:Object.fromEntries(S.workout.plan.map((p,i)=>['d'+i,p])),fields:[...'월화수목금토일'].map((d,i)=>({key:'d'+i,label:d+'요일',ph:i>4?'휴식':'예: 가슴·삼두 / 러닝 5km'})),noFocus:1,onSave:v=>{S.workout.plan=[0,1,2,3,4,5,6].map(i=>v['d'+i]||'');save('workout');}});break;
     case 'b-add':F.bucket();break; case 'b-edit':F.bucket(id);break;
@@ -2078,6 +2110,7 @@ $('#photoIn').addEventListener('change',async e=>{const f=e.target.files[0];e.ta
 if(MIGRATED)persist('routines');if(SEEDED)persist('bucket');
 const AUTO_N=autoFixed();
 if(snapNow()&&localAt('assets'))persist('assets');render();connect();
+refreshQuotes();setInterval(()=>{if(!document.hidden)refreshQuotes();},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshQuotes();});
 if(AUTO_N)setTimeout(()=>toast(`고정비 ${AUTO_N}건을 가계부에 기록했어요`),400);
 let lastDay=today();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&today()!==lastDay){lastDay=today();U.month=thisMonth();const n=autoFixed();render();if(n)toast(`고정비 ${n}건을 가계부에 기록했어요`);}});
 </script>

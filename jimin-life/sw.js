@@ -1,5 +1,5 @@
 // 오프라인에서도 앱이 열리도록 앱 파일을 캐시한다. 앱을 수정하면 버전을 올릴 것.
-const CACHE = 'jimin-life-v3';
+const CACHE = 'jimin-life-v4';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
@@ -23,6 +23,9 @@ self.addEventListener('fetch', e => {
       .catch(() => caches.match('./index.html')));
     return;
   }
+  // 시세·환율 같은 외부 API는 캐시하지 않는다 (폰트만 예외)
+  const u = new URL(req.url);
+  if (u.origin !== location.origin && !/fonts\.(googleapis|gstatic)\.com$/.test(u.hostname)) return;
   // 아이콘·폰트 등은 캐시 우선
   e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(res => {
     if (res.ok || res.type === 'opaque') { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
