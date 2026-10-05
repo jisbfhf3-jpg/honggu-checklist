@@ -1,5 +1,5 @@
 // 오프라인에서도 앱이 열리도록 앱 파일을 캐시한다. 앱을 수정하면 버전을 올릴 것.
-const CACHE = 'jimin-life-v1';
+const CACHE = 'jimin-life-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
